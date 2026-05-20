@@ -1,0 +1,7 @@
+kubeconfig:
+  - name: default
+    path: /home/huck/.kube/config
+  
+server:
+  api_listen_addr: 0.0.0.0:8080
+  grpc_listen_addr: 0.0.0.0:50051
