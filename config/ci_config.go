@@ -1,6 +1,6 @@
 package config
 
-var RunnerID = ""
+var RunnerUUID = ""
 
 type CIConfig struct {
 	Server     string `yaml:"server" validate:"required"`

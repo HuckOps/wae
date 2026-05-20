@@ -8,15 +8,28 @@ import (
 	"syscall"
 	"wae/ci"
 	"wae/config"
+	"wae/db"
 	"wae/handler"
+	"wae/pkg/logger"
 
 	"github.com/gin-gonic/gin"
+	"go.uber.org/zap"
 	"google.golang.org/grpc"
 )
 
 func main() {
+	logger.InitLogger(zap.DebugLevel.String())
+
 	if err := config.LoadConfig("/home/huck/wae/config.yaml"); err != nil {
 		log.Fatalf("Can't read config file. pls check.")
+	}
+
+	if err := db.InitMysql(); err != nil {
+		log.Fatalf("Can't init mysql. pls check.")
+	}
+
+	if err := db.InitRedis(); err != nil {
+		log.Fatalf("Can't init redis. pls check.")
 	}
 
 	r := gin.Default()

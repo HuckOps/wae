@@ -14,6 +14,8 @@ type KubeConfig struct {
 type Server struct {
 	ApiListenAddr  string `yaml:"api_listen_addr" validate:"required"`
 	GrpcListenAddr string `yaml:"grpc_listen_addr" validate:"required"`
+	MysqlDSN       string `yaml:"mysql_dsn" validate:"required"`
+	RedisDSN       string `yaml:"redis_dsn" validate:"required"`
 }
 
 type config struct {
