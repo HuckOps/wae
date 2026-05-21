@@ -1,34 +1,44 @@
 package main
 
 import (
-	"log"
+	"context"
 	"os"
 	"os/signal"
 	"syscall"
 	"wae/config"
 	"wae/db"
 	"wae/pkg/logger"
+	"wae/pkg/oidc"
+	"wae/router"
 
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 )
 
 func main() {
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
 	logger.InitLogger(zap.DebugLevel.String())
 
 	if err := config.LoadConfig("/home/huck/wae/config.yaml"); err != nil {
-		log.Fatalf("Can't read config file. pls check.")
+		logger.Logger.Fatal("Can't read config file. pls check.")
 	}
 
 	if err := db.InitMysql(); err != nil {
-		log.Fatalf("Can't init mysql. pls check.")
+		logger.Logger.Fatal("Can't init mysql. pls check.")
 	}
 
-	if err := db.InitRedis(); err != nil {
-		log.Fatalf("Can't init redis. pls check.")
+	if err := db.InitRedis(ctx); err != nil {
+		logger.Logger.Fatal("Can't init redis. pls check.")
+	}
+
+	if err := oidc.InitOIDC(ctx); err != nil {
+		logger.Logger.Fatal("Can't init oidc. pls check.")
 	}
 
 	r := gin.Default()
+
+	router.RegisterRouter(r)
 
 	// Start API Server
 	go func() {

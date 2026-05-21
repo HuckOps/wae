@@ -19,14 +19,14 @@ func InitMysql() error {
 
 var RedisClient *redis.Client
 
-func InitRedis() error {
+func InitRedis(ctx context.Context) error {
 	opt, err := redis.ParseURL(config.Config.ServerConfig.RedisDSN)
 	if err != nil {
 		return err
 	}
 	redisClient := redis.NewClient(opt)
 	RedisClient = redisClient
-	if err := redisClient.Ping(context.Background()).Err(); err != nil {
+	if err := redisClient.Ping(ctx).Err(); err != nil {
 		return err
 	}
 	return nil

@@ -26,3 +26,4 @@ logs/
 temp/
 tmp/
 Thumbs.db
+config.yaml

@@ -18,9 +18,17 @@ type Server struct {
 	RedisDSN       string `yaml:"redis_dsn" validate:"required"`
 }
 
+type OIDC struct {
+	Provider     string `yaml:"provider" validate:"required"`
+	ClientID     string `yaml:"client_id" validate:"required"`
+	ClientSecret string `yaml:"client_secret" validate:"required"`
+	RedirectURI  string `yaml:"redirect_uri" validate:"required"`
+}
+
 type config struct {
 	KubeConfigs  []KubeConfig `yaml:"kubeconfig"`
 	ServerConfig Server       `yaml:"server"`
+	OIDCConfig   OIDC         `yaml:"oidc"`
 }
 
 var Config config

@@ -1,0 +1,15 @@
+kubeconfig:
+  - name: default
+    path: /path/to/your/kube/config
+  
+server:
+  api_listen_addr: 0.0.0.0:8080
+  grpc_listen_addr: 0.0.0.0:50051
+  mysql_dsn: username:password@tcp(localhost:3306)/database_name?charset=utf8mb4&parseTime=True&loc=Local
+  redis_dsn: redis://localhost:6379/0
+
+oidc:
+  provider: https://your-oidc-provider.com
+  client_id: your-client-id
+  client_secret: your-client-secret
+  redirect_uri: http://localhost:8080/login/callback
