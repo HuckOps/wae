@@ -2,19 +2,15 @@ package main
 
 import (
 	"log"
-	"net"
 	"os"
 	"os/signal"
 	"syscall"
-	"wae/ci"
 	"wae/config"
 	"wae/db"
-	"wae/handler"
 	"wae/pkg/logger"
 
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
-	"google.golang.org/grpc"
 )
 
 func main() {
@@ -37,20 +33,6 @@ func main() {
 	// Start API Server
 	go func() {
 		if err := r.Run(config.Config.ServerConfig.ApiListenAddr); err != nil {
-			panic(err)
-		}
-	}()
-
-	lis, err := net.Listen("tcp", config.Config.ServerConfig.GrpcListenAddr)
-	if err != nil {
-		log.Fatalf("gRPC listen failed: %v", err)
-	}
-	grpcServer := grpc.NewServer()
-
-	ci.RegisterCiRunnerServiceServer(grpcServer, &handler.CIServer{})
-	// Start gRPC Server
-	go func() {
-		if err := grpcServer.Serve(lis); err != nil {
 			panic(err)
 		}
 	}()

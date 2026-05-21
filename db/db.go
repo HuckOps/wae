@@ -3,7 +3,6 @@ package db
 import (
 	"context"
 	"wae/config"
-	"wae/model"
 
 	"github.com/redis/go-redis/v9"
 	"gorm.io/driver/mysql"
@@ -15,7 +14,6 @@ var Db *gorm.DB
 func InitMysql() error {
 	db, err := gorm.Open(mysql.Open(config.Config.ServerConfig.MysqlDSN), &gorm.Config{})
 	Db = db
-	db.AutoMigrate(&model.Runner{})
 	return err
 }
 

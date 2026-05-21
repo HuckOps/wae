@@ -8,7 +8,6 @@
 go.work
 go.work.sum
 vendor/
-/pkg/
 coverage.out
 coverage.html
 *.coverprofile
