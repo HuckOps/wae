@@ -3,7 +3,7 @@ import Pagination from '@/components/Pagination';
 import StatusTag from '@/components/StatusTag';
 import { createService, getServices } from '@/services/api';
 import { FormattedMessage, useIntl } from '@@/plugin-locale';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import styles from './index.less';
 
 interface ServiceFormData {
@@ -23,7 +23,7 @@ export default function HomePage() {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [pageSize, setPageSize] = useState<number>(10);
 
-  const fetchServices = async () => {
+  const fetchServices = useCallback(async () => {
     try {
       const resp = await getServices(currentPage, pageSize);
       if (!resp) {
@@ -34,11 +34,11 @@ export default function HomePage() {
     } catch (error) {
       console.error('Failed to fetch services');
     }
-  };
+  }, [currentPage, pageSize]);
 
   useEffect(() => {
     fetchServices();
-  }, [currentPage, pageSize]);
+  }, [fetchServices]);
 
   const handleSubmit = async (formData: ServiceFormData) => {
     try {
@@ -115,14 +115,7 @@ export default function HomePage() {
           <table className={styles.table}>
             <thead>
               <tr>
-                {[
-                  'name',
-                  'repo',
-                  'domain',
-                  'cluster',
-                  'status',
-                  'lastDeploy',
-                ].map((head) => (
+                {['name', 'repo', 'domain', 'cluster', 'status', 'lastDeploy'].map((head) => (
                   <th key={head} className={styles.th}>
                     <FormattedMessage id={`service.${head}`} />
                   </th>

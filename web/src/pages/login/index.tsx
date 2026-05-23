@@ -12,7 +12,7 @@ export default function Login() {
     } else if (!auth.isLoading) {
       auth.signinRedirect();
     }
-  }, [auth.isAuthenticated, auth.isLoading]);
+  }, [auth, navigate]);
 
   if (auth.isLoading) {
     return (
@@ -21,14 +21,7 @@ export default function Login() {
   }
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        minHeight: '80vh',
-      }}
-    >
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '80vh' }}>
       正在跳转到登录页面......
     </div>
   );

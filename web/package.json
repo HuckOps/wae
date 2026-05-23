@@ -5,6 +5,7 @@
     "build": "max build",
     "dev": "max dev",
     "postinstall": "max setup",
+    "lint": "max lint",
     "setup": "max setup",
     "start": "npm run dev"
   },
@@ -24,11 +25,19 @@
     "@types/react": "^18.0.33",
     "@types/react-dom": "^18.0.11",
     "autoprefixer": "^10.5.0",
+    "eslint-config-umi": "^1.6.0",
+    "eslint-plugin-flowtype": "^8.0.3",
     "postcss": "^8.5.15",
+    "postcss-less": "^6.0.0",
     "prettier": "^2.8.8",
     "prettier-plugin-organize-imports": "^3.2.2",
     "prettier-plugin-packagejson": "^2.4.3",
+    "stylelint": "^17.12.0",
+    "stylelint-config-standard": "^40.0.0",
+    "stylelint-config-tailwindcss": "^1.0.1",
+    "stylelint-less": "^4.2.1",
+    "stylelint-order": "^8.1.1",
     "tailwindcss": "^4.3.0",
-    "typescript": "^5.0.3"
+    "typescript": "^5.1.6"
   }
 }

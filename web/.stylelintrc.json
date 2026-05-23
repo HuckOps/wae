@@ -1,0 +1,30 @@
+{
+  "extends": ["stylelint-config-standard"],
+  "plugins": ["stylelint-less"],
+  "overrides": [
+    {
+      "files": ["**/*.less"],
+      "customSyntax": "postcss-less"
+    }
+  ],
+  "rules": {
+    "at-rule-no-unknown": null,
+    "no-empty-source": null,
+    "selector-class-pattern": null,
+    "import-notation": null,
+    "alpha-value-notation": null,
+    "color-function-notation": null,
+    "color-function-alias-notation": null,
+    "custom-property-empty-line-before": null,
+    "rule-empty-line-before": null,
+    "declaration-empty-line-before": null,
+    "declaration-block-no-redundant-longhand-properties": null,
+    "no-descending-specificity": null,
+    "selector-pseudo-class-no-unknown": [
+      true,
+      {
+        "ignorePseudoClasses": ["global"]
+      }
+    ]
+  }
+}

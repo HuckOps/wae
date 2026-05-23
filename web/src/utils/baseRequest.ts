@@ -42,11 +42,11 @@ extendedRequest.interceptors.response.use(async (handler) => {
         history.push('/login');
       }
       toast.error(`Failed request to server, reason: ${resp.message}`);
-      throw false;
+      throw new Error(String(resp.message));
     }
     if (resp.code !== 0) {
       toast.error(`Failed request to server, reason: ${resp.message}`);
-      throw false;
+      throw new Error(String(resp.message));
     }
     return resp;
   } catch (error) {

@@ -1,18 +1,25 @@
 package client
 
 import (
+	"os"
 	"testing"
 	"wae/config"
 )
 
 func init() {
-	err := config.LoadConfig("../config.yaml")
+	if os.Getenv("GITHUB_ACTIONS") == "true" {
+		return
+	}
+	err := config.LoadConfig("/root/wae/config.yaml")
 	if err != nil {
 		panic(err)
 	}
 }
 
 func TestGetNamespaces(t *testing.T) {
+	if os.Getenv("GITHUB_ACTIONS") == "true" {
+		t.Skip("skip in GitHub Actions")
+	}
 	kc := config.Config.KubeConfigs[0]
 	client, err := NewClient(kc)
 	if err != nil {
@@ -31,6 +38,9 @@ func TestGetNamespaces(t *testing.T) {
 }
 
 func TestCreateAndDeleteNamespace(t *testing.T) {
+	if os.Getenv("GITHUB_ACTIONS") == "true" {
+		t.Skip("skip in GitHub Actions")
+	}
 	kc := config.Config.KubeConfigs[0]
 	client, err := NewClient(kc)
 	if err != nil {
