@@ -7,8 +7,9 @@ import (
 )
 
 type KubeConfig struct {
-	Name string `yaml:"name" validate:"required"`
-	Path string `yaml:"path" validate:"required"`
+	Name string   `yaml:"name" validate:"required"`
+	Path string   `yaml:"path" validate:"required"`
+	Tags []string `yaml:"tags"`
 }
 
 type Server struct {

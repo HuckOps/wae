@@ -5,6 +5,7 @@ import (
 	"wae/config"
 
 	"github.com/coreos/go-oidc/v3/oidc"
+	"github.com/gin-gonic/gin"
 	"golang.org/x/oauth2"
 )
 
@@ -34,13 +35,14 @@ type Claims struct {
 	Email string `json:"email"`
 }
 
-type claimsKey struct{}
+const ClaimsKey = "claims"
 
-func NewContext(ctx context.Context, claims *Claims) context.Context {
-	return context.WithValue(ctx, claimsKey{}, claims)
+func NewContext(ctx *gin.Context, claims *Claims) *gin.Context {
+	ctx.Set(ClaimsKey, claims)
+	return ctx
 }
 
-func FromContext(ctx context.Context) (*Claims, bool) {
-	claims, ok := ctx.Value(claimsKey{}).(*Claims)
-	return claims, ok
+func FromContext(ctx *gin.Context) (*Claims, bool) {
+	claims, ok := ctx.Get(ClaimsKey)
+	return claims.(*Claims), ok
 }

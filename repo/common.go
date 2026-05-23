@@ -22,7 +22,7 @@ func GetByID[T any](ctx context.Context, id any) (T, error) {
 }
 
 func GetByOptions[T any](ctx context.Context, opts ...Option) ([]T, error) {
-	var results []T
+	var results = make([]T, 0)
 	var model T
 	query := db.Db.WithContext(ctx).Model(&model)
 	for _, opt := range opts {
@@ -37,7 +37,7 @@ func GetByOptions[T any](ctx context.Context, opts ...Option) ([]T, error) {
 }
 
 func GetByPagination[T any](ctx context.Context, page, pageSize int, opts ...Option) (int64, []T, error) {
-	var results []T
+	var results = make([]T, 0)
 	var model T
 	query := db.Db.WithContext(ctx).Model(&model)
 	for _, opt := range opts {
@@ -47,7 +47,7 @@ func GetByPagination[T any](ctx context.Context, page, pageSize int, opts ...Opt
 	var count int64
 	err := query.Count(&count).Error
 	if err != nil {
-		return 0, nil, err
+		return 0, results, err
 	}
 
 	query.Offset((page - 1) * pageSize)

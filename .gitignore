@@ -27,3 +27,7 @@ temp/
 tmp/
 Thumbs.db
 config.yaml
+web/node_modules/
+web/dist/
+web/.turbopack
+config.yaml

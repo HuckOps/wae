@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"flag"
 	"os"
 	"os/signal"
 	"syscall"
@@ -16,11 +17,17 @@ import (
 )
 
 func main() {
+	var configPath string = "./config.yaml"
+
+	flag.StringVar(&configPath, "c", "./config.yaml", "Server config yaml path(default: ./config.yaml).")
+
+	flag.Parse()
+
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 	logger.InitLogger(zap.DebugLevel.String())
 
-	if err := config.LoadConfig("/home/huck/wae/config.yaml"); err != nil {
+	if err := config.LoadConfig(configPath); err != nil {
 		logger.Logger.Fatal("Can't read config file. pls check.")
 	}
 

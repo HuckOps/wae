@@ -52,7 +52,7 @@ func OIDCMiddleware() gin.HandlerFunc {
 			return
 		}
 
-		ctx := oidc.NewContext(c.Request.Context(), &claims)
+		ctx := oidc.NewContext(c, &claims)
 		c.Request = c.Request.WithContext(ctx)
 		c.Next()
 	}
